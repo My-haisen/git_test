@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DisplayWidget</class>
+ <widget class="QWidget" name="DisplayWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>社区宣传信息展示</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+/* ================= 全局背景 ================= */
+QWidget#DisplayWidget {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 #0f2027, stop:0.5 #203a43, stop:1 #2c5364);
+    font-family: &quot;Microsoft YaHei&quot;, &quot;SimHei&quot;, sans-serif;
+}
+
+/* ================= 视频播放区 (锁定左上角0,0) ================= */
+QWidget#videoContainer {
+    background-color: #050505;
+    /* 去除左上角圆角，贴合物理屏幕 */
+    border-bottom-right-radius: 8px;
+    border-right: 2px solid rgba(255,255,255,20);
+    border-bottom: 2px solid rgba(255,255,255,20);
+}
+QLabel#lblVideoPlaceholder {
+    color: #7f8c8d;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+/* ================= 右侧图文展示区 ================= */
+QFrame#rightPanel {
+    background-color: transparent;
+    margin-top: 10px; /* 防止贴住屏幕顶边 */
+}
+
+QLabel#lblImage {
+    background-color: rgba(0, 0, 0, 80);
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,20);
+    color: #bdc3c7;
+    font-size: 16px;
+}
+
+QLabel#lblAnnouncement {
+    background-color: rgba(255, 255, 255, 245);
+    color: #2c3e50;
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 5px solid #3498db; 
+}
+
+/* ================= 中间控制栏 (原Header) ================= */
+QFrame#headerFrame {
+    background-color: rgba(255, 255, 255, 20); 
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 30);
+    margin-left: 10px; /* 防止贴住屏幕左边 */
+}
+
+QLabel#lblTime {
+    color: #ffffff; 
+    font-size: 18px;
+    font-weight: bold;
+    font-family: &quot;Arial&quot;;
+    background-color: rgba(0, 0, 0, 60);
+    padding: 2px 10px;
+    border-radius: 6px;
+}
+
+QLabel#lblWeather {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+QLabel#lblTips {
+    color: #ecf0f1;
+    font-size: 14px;
+}
+
+QLabel#client_label {
+    color: #e74c3c; 
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 5px;
+}
+
+QPushButton#btnAdminLogin {
+    background-color: rgba(52, 152, 219, 180);
+    color: #ffffff;
+    border: 1px solid #3498db;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+QPushButton#btnAdminLogin:hover {
+    background-color: #2980b9;
+}
+QPushButton#btnAdminLogin:pressed {
+    background-color: #1c2833;
+}
+
+QPushButton#pushButton_videomute {
+    background-color: rgba(46, 204, 113, 180);
+    color: #ffffff;
+    border: 1px solid #2ecc71;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+QPushButton#pushButton_videomute:hover {
+    background-color: #27ae60;
+}
+
+/* ================= 底部跑马灯 ================= */
+QFrame#footerFrame {
+    background: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #cb2d3e, stop:1 #ef473a);
+    border-radius: 8px;
+    border: 1px solid #e74c3c;
+    margin-left: 10px; /* 防止贴住屏幕左边 */
+}
+QLabel#lblScrollingText {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+   </string>
+  </property>
+  
+  <layout class="QGridLayout" name="gridLayout_main">
+   <property name="leftMargin">
+    <number>0</number> </property>
+   <property name="topMargin">
+    <number>0</number> </property>
+   <property name="rightMargin">
+    <number>10</number>
+   </property>
+   <property name="bottomMargin">
+    <number>10</number>
+   </property>
+   <property name="horizontalSpacing">
+    <number>10</number>
+   </property>
+   <property name="verticalSpacing">
+    <number>10</number>
+   </property>
+
+   <item row="0" column="0">
+    <widget class="QWidget" name="videoContainer" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>1</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_video">
+      <property name="leftMargin"><number>0</number></property>
+      <property name="topMargin"><number>0</number></property>
+      <property name="rightMargin"><number>0</number></property>
+      <property name="bottomMargin"><number>0</number></property>
+      <item>
+       <widget class="QLabel" name="lblVideoPlaceholder">
+        <property name="text"><string>🎬 宣传视频加载中...</string></property>
+        <property name="alignment"><set>Qt::AlignCenter</set></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+
+   <item row="0" column="1">
+    <widget class="QFrame" name="rightPanel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>1</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_right">
+      <property name="spacing"><number>10</number></property>
+      <property name="leftMargin"><number>0</number></property>
+      <property name="topMargin"><number>0</number></property>
+      <property name="rightMargin"><number>0</number></property>
+      <property name="bottomMargin"><number>0</number></property>
+      <item>
+       <widget class="QLabel" name="lblImage">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>1</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text"><string>🖼️ 社区风采展示</string></property>
+        <property name="alignment"><set>Qt::AlignCenter</set></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblAnnouncement">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>1</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>📢 【社区最新公告】
+亲爱的居民朋友们：
+欢迎您回到温暖的家。
+本社区已开启智慧多媒体服务，
+随时为您播报最新资讯与贴心提示，
+祝您生活愉快，阖家欢乐！</string>
+        </property>
+        <property name="alignment"><set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set></property>
+        <property name="wordWrap"><bool>true</bool></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+
+   <item row="1" column="0" colspan="2">
+    <widget class="QFrame" name="headerFrame">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_header">
+      <property name="spacing"><number>15</number></property>
+      <property name="leftMargin"><number>10</number></property>
+      <property name="rightMargin"><number>10</number></property>
+      <item>
+       <widget class="QLabel" name="lblTime">
+        <property name="text"><string>10:00</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblWeather">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text"><string>⛅ 天气数据加载中...</string></property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_header_mid">
+        <property name="orientation"><enum>Qt::Horizontal</enum></property>
+        <property name="sizeHint" stdset="0"><size><width>10</width><height>20</height></size></property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblTips">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize"><size><width>250</width><height>16777215</height></size></property>
+        <property name="text"><string>温馨提示：注意防火防盗。</string></property>
+        <property name="alignment"><set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="client_label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text"><string>🔴 远控未接入</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_videomute">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize"><size><width>90</width><height>32</height></size></property>
+        <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
+        <property name="text"><string>🔇 视频静音</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnAdminLogin">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize"><size><width>100</width><height>32</height></size></property>
+        <property name="cursor"><cursorShape>PointingHandCursor</cursorShape></property>
+        <property name="text"><string>⚙️ 登录后台</string></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+
+   <item row="2" column="0" colspan="2">
+    <widget class="QFrame" name="footerFrame">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_footer">
+      <property name="leftMargin"><number>0</number></property>
+      <property name="topMargin"><number>0</number></property>
+      <property name="rightMargin"><number>0</number></property>
+      <property name="bottomMargin"><number>0</number></property>
+      <item>
+       <widget class="QLabel" name="lblScrollingText">
+        <property name="text"><string>  🚨 紧急通知：请大家提前做好储水准备！  </string></property>
+        <property name="alignment"><set>Qt::AlignVCenter</set></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
