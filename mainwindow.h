@@ -26,5 +26,6 @@ private:
     int temp_dir;
     int test_git;
     int aaaa;
+    int new_funct;
 };
 #endif // MAINWINDOW_H
