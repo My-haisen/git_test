@@ -24,5 +24,7 @@ private:
     AdminWidget * adminW;
 
     int temp_dir;
+    int test_git;
+    int aaaa;
 };
 #endif // MAINWINDOW_H
