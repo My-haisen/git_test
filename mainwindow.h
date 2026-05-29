@@ -22,5 +22,7 @@ private:
     DisplayWidget *displayW;
     LoginWidget *loginW;
     AdminWidget * adminW;
+
+    int temp_dir;
 };
 #endif // MAINWINDOW_H

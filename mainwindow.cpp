@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // 1. 实例化堆栈窗口和三个子页面
+    // 1. 实例化堆栈窗口和三个子页面 -----------------
     QStackedWidget *stackedWidget = new QStackedWidget(this);
     displayW = new DisplayWidget();
     loginW = new LoginWidget();
